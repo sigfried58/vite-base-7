@@ -10,6 +10,8 @@ This document explicitly defines the initial configuration, dependencies, and se
   - **ESLint:** Configured with custom React type-aware rules.
   - **Prettier:** Installed and integrated for consistent code formatting.
   - **Package Scripts:** `lint`, `lint:fix`, and `format` are available out of the box.
+- **Routing:** React Router v7 configured via `createBrowserRouter`.
+- **Error Handling:** A baseline `GlobalErrorBoundary` component is set up and bound to the root route using React Router's `errorElement`.
 
 ## Build Target & Browser Compatibility
 
