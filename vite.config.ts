@@ -1,4 +1,5 @@
-import { defineConfig } from 'vite';
+/// <reference types="vitest" />
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import legacy from '@vitejs/plugin-legacy';
 
@@ -20,5 +21,10 @@ export default defineConfig({
   ],
   build: {
     target: ['chrome90', 'edge90', 'firefox88', 'safari14.1'],
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
   },
 });
