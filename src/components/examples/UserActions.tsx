@@ -1,21 +1,22 @@
 import { useState } from 'react';
-import { useMutation } from '../../hooks/useMutation';
+import { useMutation } from '@hooks/useMutation';
+import { API_ENDPOINTS } from '@constants/api';
 
 export function UserActions() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   const { mutate: createUser, isLoading: isCreating, data: createdUser } = useMutation<any>(
-    'https://jsonplaceholder.typicode.com/users'
+    API_ENDPOINTS.USERS
   );
 
   const { mutate: updateUser, isLoading: isUpdating } = useMutation<any>(
-    'https://jsonplaceholder.typicode.com/users/1',
+    API_ENDPOINTS.USER_BY_ID(1),
     { method: 'PUT' }
   );
 
   const { mutate: deleteUser, isLoading: isDeleting, isError: deleteError } = useMutation<any>(
-    'https://jsonplaceholder.typicode.com/users/1',
+    API_ENDPOINTS.USER_BY_ID(1),
     { method: 'DELETE' }
   );
 

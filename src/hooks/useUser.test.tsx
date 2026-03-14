@@ -2,6 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { useUser } from './useUser';
 import { server } from '../mocks/server';
 import { http, HttpResponse } from 'msw';
+import { API_BASE_URL, API_ENDPOINTS } from '../constants/api';
 
 describe('useUser Hook', () => {
   it('returns user data successfully', async () => {
@@ -24,7 +25,7 @@ describe('useUser Hook', () => {
 
   it('handles API errors correctly', async () => {
     server.use(
-      http.get('https://jsonplaceholder.typicode.com/users/999', () => {
+      http.get(`${API_BASE_URL}${API_ENDPOINTS.USER_BY_ID(999)}`, () => {
         return new HttpResponse(null, { status: 404 });
       })
     );

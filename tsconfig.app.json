@@ -28,7 +28,18 @@
       "vitest/globals",
       "@testing-library/jest-dom",
       "node"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@components/*": ["./src/components/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@src-types/*": ["./src/types/*"],
+      "@mocks/*": ["./src/mocks/*"],
+      "@pages/*": ["./src/pages/*"]
+    }
   },
   "include": [
     "src"

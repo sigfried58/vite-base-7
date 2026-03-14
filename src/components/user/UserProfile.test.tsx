@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { HttpResponse, http } from 'msw';
 import { server } from '../../mocks/server';
 import { UserProfile } from './UserProfile';
+import { API_BASE_URL, API_ENDPOINTS } from '../../constants/api';
 
 describe('UserProfile', () => {
   it('renders user details successfully', async () => {
@@ -20,7 +21,7 @@ describe('UserProfile', () => {
 
   it('handles server error', async () => {
     server.use(
-      http.get('https://jsonplaceholder.typicode.com/users/1', () => {
+      http.get(`${API_BASE_URL}${API_ENDPOINTS.USER_BY_ID(1)}`, () => {
         return new HttpResponse(null, { status: 500 });
       })
     );
