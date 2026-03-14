@@ -7,9 +7,9 @@ export function UserActions() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const { mutate: createUser, isLoading: isCreating, data: createdUser } = useCreateUser();
-  const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser(1);
-  const { mutate: deleteUser, isLoading: isDeleting, isError: deleteError } = useDeleteUser(1);
+  const { mutate: createUser, isPending: isCreating, data: createdUser } = useCreateUser();
+  const { mutate: updateUser, isPending: isUpdating } = useUpdateUser(1);
+  const { mutate: deleteUser, isPending: isDeleting, isError: deleteError } = useDeleteUser(1);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ export function UserActions() {
 
   const handleDelete = async () => {
     try {
-      await deleteUser(undefined as any);
+      await deleteUser();
       alert('User deleted successfully!');
     } catch (error) {
       console.error('Failed to delete user:', error);
