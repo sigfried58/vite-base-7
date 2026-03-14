@@ -14,6 +14,10 @@ This document explicitly defines the initial configuration, dependencies, and se
 - **Error Handling:** 
   - A routing `GlobalErrorBoundary` component is set up and bound to the root route using React Router's `errorElement`.
   - A React class-based `CodeErrorBoundary` is provided to wrap specific components or features to gracefully catch and display runtime rendering and lifecycle errors.
+- **Testing & Mocking:**
+  - **Runner:** Vitest natively integrated with Vite. Setup file configured globally using `jsdom`.
+  - **DOM Testing:** React Testing Library coupled with `jest-dom` for robust component assertion.
+  - **Mocking (MSW):** Mock Service Worker (MSW) is fully integrated. It works out-of-the-box for intercepting requests during tests (`src/mocks/server.ts`) and also during local development in the browser (`src/mocks/browser.ts`).
 
 ## Build Target & Browser Compatibility
 
