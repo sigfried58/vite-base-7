@@ -1,27 +1,11 @@
-import { useEffect, useState } from 'react';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
+import { useUser } from '../hooks/useUser';
 
 export function UserProfile() {
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { data: user, error, isPending } = useUser(1);
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users/1')
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch user');
-        return res.json();
-      })
-      .then((data) => setUser(data))
-      .catch((err) => setError(err.message));
-  }, []);
-
-  if (error) return <div role="alert">{error}</div>;
-  if (!user) return <div>Loading...</div>;
+  if (error) return <div role="alert">{error.message}</div>;
+  if (isPending) return <div>Loading...</div>;
+  if (!user) return null;
 
   return (
     <div>

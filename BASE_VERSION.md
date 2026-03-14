@@ -11,6 +11,9 @@ This document explicitly defines the initial configuration, dependencies, and se
   - **Prettier:** Installed and integrated for consistent code formatting.
   - **Package Scripts:** `lint`, `lint:fix`, and `format` are available out of the box.
 - **Routing:** React Router v7 configured via `createBrowserRouter`.
+- **Data Fetching:**
+  - **Client:** `@tanstack/react-query` configured centrally (`src/lib/queryClient.ts`) to act strictly as a data-fetching layer, omitting cache by default (`staleTime: 0`, `gcTime: 0`) in compliance with banking application constraints.
+  - **Tooling:** `axios` is available for HTTP requests.
 - **Error Handling:** 
   - A routing `GlobalErrorBoundary` component is set up and bound to the root route using React Router's `errorElement`.
   - A React class-based `CodeErrorBoundary` is provided to wrap specific components or features to gracefully catch and display runtime rendering and lifecycle errors.
