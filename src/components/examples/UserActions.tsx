@@ -1,24 +1,15 @@
 import { useState } from 'react';
-import { useMutation } from '@hooks/useMutation';
-import { API_ENDPOINTS } from '@constants/api';
+import { useCreateUser } from '@hooks/useCreateUser';
+import { useUpdateUser } from '@hooks/useUpdateUser';
+import { useDeleteUser } from '@hooks/useDeleteUser';
 
 export function UserActions() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const { mutate: createUser, isLoading: isCreating, data: createdUser } = useMutation<any>(
-    API_ENDPOINTS.USERS
-  );
-
-  const { mutate: updateUser, isLoading: isUpdating } = useMutation<any>(
-    API_ENDPOINTS.USER_BY_ID(1),
-    { method: 'PUT' }
-  );
-
-  const { mutate: deleteUser, isLoading: isDeleting, isError: deleteError } = useMutation<any>(
-    API_ENDPOINTS.USER_BY_ID(1),
-    { method: 'DELETE' }
-  );
+  const { mutate: createUser, isLoading: isCreating, data: createdUser } = useCreateUser();
+  const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser(1);
+  const { mutate: deleteUser, isLoading: isDeleting, isError: deleteError } = useDeleteUser(1);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

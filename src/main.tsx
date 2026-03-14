@@ -12,8 +12,12 @@ import { GlobalErrorBoundary } from './components/errors/GlobalErrorBoundary.tsx
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: 0,
+      gcTime: 0,
       retry: 1,
       refetchOnWindowFocus: false,
+      refetchOnMount: true, // Always fetch on mount since no cache
+      refetchOnReconnect: false,
     },
   },
 });

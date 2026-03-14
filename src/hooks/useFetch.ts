@@ -4,10 +4,10 @@ import apiClient from '../lib/apiClient';
 
 export const useFetch = <T>(
   url: string,
-  options?: Omit<UseQueryOptions<T, AxiosError>, 'queryKey' | 'queryFn'>
+  options?: Omit<UseQueryOptions<T, AxiosError>, 'queryFn'>
 ) => {
   return useQuery<T, AxiosError>({
-    queryKey: [url],
+    queryKey: options?.queryKey || [url],
     queryFn: async ({ signal }) => {
       const response = await apiClient.request<T>({
         url,
