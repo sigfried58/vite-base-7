@@ -42,7 +42,7 @@ export function UserActions() {
 
   const handleDelete = async () => {
     try {
-      await deleteUser();
+      await deleteUser(undefined as any);
       alert('User deleted successfully!');
     } catch (error) {
       console.error('Failed to delete user:', error);

@@ -1,14 +1,30 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './Home';
+
+const createTestQueryClient = () => new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
+const renderWithProviders = (ui: React.ReactElement) => {
+  const queryClient = createTestQueryClient();
+  return render(
+    <QueryClientProvider client={queryClient}>
+      <MemoryRouter>
+        {ui}
+      </MemoryRouter>
+    </QueryClientProvider>
+  );
+};
 
 describe('Home Page', () => {
   it('renders correctly and displays essential elements', () => {
-    render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>
-    );
+    renderWithProviders(<Home />);
 
     expect(screen.getByText('Home Page')).toBeInTheDocument();
     expect(screen.getByText('Welcome to the MFE Base Template!')).toBeInTheDocument();
@@ -16,11 +32,7 @@ describe('Home Page', () => {
   });
 
   it('handles simulated component errors gracefully', async () => {
-    render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>
-    );
+    renderWithProviders(<Home />);
     
     // Silence React's expected error logging and window ErrorEvents
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -37,11 +49,7 @@ describe('Home Page', () => {
   });
 
   it('renders MSW example successfully', async () => {
-    render(
-      <MemoryRouter>
-        <Home />
-      </MemoryRouter>
-    );
+    renderWithProviders(<Home />);
 
     // Initial loading from UserProfile
     expect(screen.getByText('Loading...')).toBeInTheDocument();
