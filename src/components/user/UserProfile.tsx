@@ -1,4 +1,4 @@
-import { useUser } from '../hooks/useUser';
+import { useUser } from '../../hooks/useUser';
 
 export function UserProfile() {
   const { data: user, error, isPending } = useUser(1);

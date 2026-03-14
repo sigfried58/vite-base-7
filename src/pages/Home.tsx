@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { CodeErrorBoundary } from "../components/CodeErrorBoundary";
-import { UserProfile } from "../components/UserProfile";
+import { CodeErrorBoundary } from "../components/errors/CodeErrorBoundary";
+import { UserProfile } from "../components/user/UserProfile";
 
 function ProblematicComponent() {
     const [shouldThrow, setShouldThrow] = useState(false);

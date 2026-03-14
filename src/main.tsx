@@ -7,7 +7,7 @@ import './index.css';
 
 import Home from './pages/Home.tsx';
 import About from './pages/About.tsx';
-import { GlobalErrorBoundary } from './components/GlobalErrorBoundary.tsx';
+import { GlobalErrorBoundary } from './components/errors/GlobalErrorBoundary.tsx';
 
 async function enableMocking() {
   if (!import.meta.env.DEV) {
