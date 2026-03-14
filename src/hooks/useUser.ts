@@ -1,10 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchUser } from '../services/userService';
+import { useFetch } from './useFetch';
 import type { User } from '../types/user';
 
 export const useUser = (id: number) => {
-  return useQuery<User, Error>({
-    queryKey: ['user', id],
-    queryFn: () => fetchUser(id),
-  });
+  return useFetch<User>(`https://jsonplaceholder.typicode.com/users/${id}`);
 };

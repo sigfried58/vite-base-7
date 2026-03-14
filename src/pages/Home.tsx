@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { CodeErrorBoundary } from "../components/errors/CodeErrorBoundary";
 import { UserProfile } from "../components/user/UserProfile";
+import { UserActions } from "../components/examples/UserActions";
 
 function ProblematicComponent() {
     const [shouldThrow, setShouldThrow] = useState(false);
@@ -38,6 +39,7 @@ export default function Home() {
                 <div style={{ margin: "2rem 0", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
                     <h2>MSW Example</h2>
                     <UserProfile />
+                    <UserActions />
                 </div>
 
                 <nav style={{ display: "flex", gap: "1rem", flexDirection: "column", alignItems: "flex-start" }}>

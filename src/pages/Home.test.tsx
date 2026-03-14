@@ -1,27 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './Home';
-
-const createTestQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
 
 describe('Home Page', () => {
   it('renders correctly and displays essential elements', () => {
-    const queryClient = createTestQueryClient();
-
     render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
-      </QueryClientProvider>
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
     );
 
     expect(screen.getByText('Home Page')).toBeInTheDocument();
@@ -30,14 +16,10 @@ describe('Home Page', () => {
   });
 
   it('handles simulated component errors gracefully', async () => {
-    const queryClient = createTestQueryClient();
-
     render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
-      </QueryClientProvider>
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
     );
     
     // Silence React's expected error logging and window ErrorEvents
@@ -55,14 +37,10 @@ describe('Home Page', () => {
   });
 
   it('renders MSW example successfully', async () => {
-    const queryClient = createTestQueryClient();
-
     render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
-      </QueryClientProvider>
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
     );
 
     // Initial loading from UserProfile
