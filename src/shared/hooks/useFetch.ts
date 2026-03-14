@@ -1,12 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
-import { type AxiosError, type AxiosRequestConfig, isCancel } from 'axios';
-import apiClient from '../lib/apiClient';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import axios, { isCancel, type AxiosRequestConfig, type AxiosError } from 'axios';
+import apiClient from '@api/apiClient';
 
 interface UseFetchState<T> {
   data: T | null;
   isLoading: boolean;
   isError: boolean;
-  error: AxiosError | null;
+  error: Error | null;
 }
 
 export const useFetch = <T>(url: string, config?: AxiosRequestConfig) => {
@@ -17,14 +17,15 @@ export const useFetch = <T>(url: string, config?: AxiosRequestConfig) => {
     error: null,
   });
 
-  const fetchData = useCallback(async (abortController: AbortController) => {
+  const configRef = useRef(config);
+
+  const fetchData = useCallback(async (abortSignal?: AbortSignal) => {
     setState((prev) => ({ ...prev, isLoading: true, isError: false, error: null }));
     try {
       const response = await apiClient.request<T>({
         url,
-        method: 'GET',
-        ...config,
-        signal: abortController.signal,
+        signal: abortSignal,
+        ...configRef.current,
       });
       setState({
         data: response.data,
@@ -32,28 +33,23 @@ export const useFetch = <T>(url: string, config?: AxiosRequestConfig) => {
         isError: false,
         error: null,
       });
-    } catch (err: any) {
+    } catch (err) {
       if (isCancel(err)) return;
       
       setState({
         data: null,
         isLoading: false,
         isError: true,
-        error: err as AxiosError,
+        error: err as Error,
       });
     }
-  }, [url, config]);
+  }, [url]);
 
   useEffect(() => {
-    const abortController = new AbortController();
-    fetchData(abortController);
-    return () => abortController.abort();
+    const controller = new AbortController();
+    fetchData(controller.signal);
+    return () => controller.abort();
   }, [fetchData]);
 
-  const refetch = useCallback(() => {
-    const abortController = new AbortController();
-    fetchData(abortController);
-  }, [fetchData]);
-
-  return { ...state, refetch };
+  return { ...state, refetch: fetchData };
 };

@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react';
-import { type AxiosError, type AxiosRequestConfig, isCancel } from 'axios';
-import apiClient from '../lib/apiClient';
+import axios, { type AxiosRequestConfig } from 'axios';
+import apiClient from '@api/apiClient';
 
 interface UseMutationState<T> {
   data: T | null;
   isLoading: boolean;
   isError: boolean;
-  error: AxiosError | null;
+  error: axios.AxiosError | null;
 }
 
 export const useMutation = <T, D = any>(
@@ -21,15 +21,13 @@ export const useMutation = <T, D = any>(
   });
 
   const mutate = useCallback(
-    async (data?: D, overrideConfig?: AxiosRequestConfig) => {
+    async (data?: D) => {
       setState((prev) => ({ ...prev, isLoading: true, isError: false, error: null }));
       try {
         const response = await apiClient.request<T>({
           url,
-          method: 'POST',
-          data,
           ...config,
-          ...overrideConfig,
+          data,
         });
         setState({
           data: response.data,
@@ -38,29 +36,19 @@ export const useMutation = <T, D = any>(
           error: null,
         });
         return response.data;
-      } catch (err: any) {
-        if (isCancel(err)) throw err;
-
+      } catch (err) {
+        const axiosError = err as axios.AxiosError;
         setState({
           data: null,
           isLoading: false,
           isError: true,
-          error: err as AxiosError,
+          error: axiosError,
         });
-        throw err;
+        throw axiosError;
       }
     },
     [url, config]
   );
 
-  const reset = useCallback(() => {
-    setState({
-      data: null,
-      isLoading: false,
-      isError: false,
-      error: null,
-    });
-  }, []);
-
-  return { ...state, mutate, reset };
+  return { ...state, mutate };
 };

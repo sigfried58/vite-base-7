@@ -1,6 +1,9 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import Home from './Home';
+import { server } from '@mocks/server';
+import { http, HttpResponse } from 'msw';
+import { API_BASE_URL, API_ENDPOINTS } from '@constants/api';
 
 describe('Home Page', () => {
   it('renders correctly and displays essential elements', () => {

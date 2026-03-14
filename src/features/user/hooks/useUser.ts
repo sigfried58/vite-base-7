@@ -1,4 +1,4 @@
-import { useFetch } from '@hooks/useFetch';
+import { useFetch } from '@shared/hooks/useFetch';
 import type { User } from '@src-types/user';
 import { API_ENDPOINTS } from '@constants/api';
 

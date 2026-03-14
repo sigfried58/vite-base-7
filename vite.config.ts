@@ -9,9 +9,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@api': path.resolve(__dirname, './src/api'),
+      '@hooks': path.resolve(__dirname, './src/shared/hooks'),
       '@components': path.resolve(__dirname, './src/components'),
-      '@lib': path.resolve(__dirname, './src/lib'),
       '@constants': path.resolve(__dirname, './src/constants'),
       '@src-types': path.resolve(__dirname, './src/types'),
       '@mocks': path.resolve(__dirname, './src/mocks'),

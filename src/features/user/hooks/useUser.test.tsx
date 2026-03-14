@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { useUser } from './useUser';
-import { server } from '../mocks/server';
+import { server } from '@mocks/server';
 import { http, HttpResponse } from 'msw';
-import { API_BASE_URL, API_ENDPOINTS } from '../constants/api';
+import { API_BASE_URL, API_ENDPOINTS } from '@constants/api';
 
 describe('useUser Hook', () => {
   it('returns user data successfully', async () => {
