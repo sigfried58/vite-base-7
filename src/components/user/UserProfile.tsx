@@ -1,7 +1,7 @@
-import { useUser } from '@hooks/useUser';
+import { useUserQuery } from '@hooks/useUserQuery';
 
 export function UserProfile() {
-  const { data: user, error, isLoading } = useUser(1);
+  const { data: user, error, isLoading } = useUserQuery(1);
 
   if (error) return <div role="alert">{error.message}</div>;
   if (isLoading) return <div>Loading...</div>;

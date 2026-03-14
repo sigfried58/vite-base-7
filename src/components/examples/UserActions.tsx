@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useCreateUser } from '@hooks/useCreateUser';
-import { useUpdateUser } from '@hooks/useUpdateUser';
-import { useDeleteUser } from '@hooks/useDeleteUser';
+import { useCreateUserMutation } from '@hooks/useCreateUserMutation';
+import { useUpdateUserMutation } from '@hooks/useUpdateUserMutation';
+import { useDeleteUserMutation } from '@hooks/useDeleteUserMutation';
 
 export function UserActions() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const { mutate: createUser, isPending: isCreating, data: createdUser } = useCreateUser();
-  const { mutate: updateUser, isPending: isUpdating } = useUpdateUser(1);
-  const { mutate: deleteUser, isPending: isDeleting, isError: deleteError } = useDeleteUser(1);
+  const { mutate: createUser, isPending: isCreating, data: createdUser } = useCreateUserMutation();
+  const { mutate: updateUser, isPending: isUpdating } = useUpdateUserMutation(1);
+  const { mutate: deleteUser, isPending: isDeleting, isError: deleteError } = useDeleteUserMutation(1);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

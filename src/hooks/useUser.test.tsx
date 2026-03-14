@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useUser } from './useUser';
+import { useUserQuery } from './useUserQuery';
 import { server } from '../mocks/server';
 import { http, HttpResponse } from 'msw';
 import { API_BASE_URL, API_ENDPOINTS } from '../constants/api';
@@ -13,14 +13,14 @@ const createTestQueryClient = () => new QueryClient({
   },
 });
 
-describe('useUser Hook', () => {
+describe('useUserQuery Hook', () => {
   it('returns user data successfully', async () => {
     const queryClient = createTestQueryClient();
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
 
-    const { result } = renderHook(() => useUser(1), { wrapper });
+    const { result } = renderHook(() => useUserQuery(1), { wrapper });
 
     // Initially loading
     expect(result.current.isLoading).toBe(true);
@@ -48,7 +48,7 @@ describe('useUser Hook', () => {
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
 
-    const { result } = renderHook(() => useUser(999), { wrapper });
+    const { result } = renderHook(() => useUserQuery(999), { wrapper });
 
     await waitFor(() => {
       expect(result.current.isError).toBe(true);
